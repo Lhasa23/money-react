@@ -8,6 +8,7 @@ import {
     Redirect
 } from "react-router-dom";
 import Nav from "./components/Nav";
+import Layout from "./components/Layout";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -43,22 +44,33 @@ function App () {
                         </Route>
                     </Switch>
                 </Main>
-                <Nav />
             </Wrapper>
         </Router>
     );
 }
 
-function Statistics() {
-    return <h2>Home</h2>;
+function Tags() {
+    return (
+        <Layout>
+            <h2>Tags</h2>
+        </Layout>
+    );
 }
 
-function Tags() {
-    return <h2>About</h2>;
+function Statistics() {
+    return (
+        <Layout>
+            <h2>Statistics</h2>
+        </Layout>
+    );
 }
 
 function Money() {
-    return <h2>Users</h2>;
+    return (
+        <Layout>
+            <h2>Money</h2>
+        </Layout>
+    );
 }
 
 function NoMatch() {
