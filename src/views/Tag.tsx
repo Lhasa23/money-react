@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import useTags from '../useTags';
 import {
     useParams,
@@ -64,6 +64,7 @@ const Footer = styled.div`
 `
 
 const Tag: React.FC = () => {
+    const count = useRef(0)
     let history = useHistory()
     const {findTag, updateTag, deleteTag} = useTags()
     const [tagName, setTagName] = useState('')
@@ -71,10 +72,17 @@ const Tag: React.FC = () => {
     useEffect(() => {
         if (+idString !== -1) {
             const tag = findTag(+idString)
-            setTagName(tag.name)
+            if (tag && count.current === 0) {
+                count.current += 1
+                setTagName(tag.name)
+            }
         }
-    }, [])
+    }, [findTag])
     const onClickAdd = (id: number, name: string) => {
+        if (!name) {
+            alert('标签名不能为空')
+            return
+        }
         if (id === -1) {
             id = createId()
         }

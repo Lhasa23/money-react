@@ -1,15 +1,27 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import createId from './lib/createId';
+import useUpdate from './lib/useUpdate';
 
-const defaultTags = [
-    {id: createId(), name: '衣'},
-    {id: createId(), name: '食'},
-    {id: createId(), name: '住'},
-    {id: createId(), name: '行'}
-]
 const useTags = () => {
-    const [tags, setTags] = useState<{ id: number, name: string }[]>(defaultTags)
-    const findTag = (id: number) => tags.filter(tag => tag.id === id)[0]
+    const [tags, setTags] = useState<{ id: number, name: string }[]>([])
+    useEffect(() => {
+        let localTags = JSON.parse(localStorage.getItem('tags') || '[]')
+        if (localTags.length === 0) {
+            localTags = [
+                {id: createId(), name: '衣'},
+                {id: createId(), name: '食'},
+                {id: createId(), name: '住'},
+                {id: createId(), name: '行'}
+            ]
+        }
+        setTags(localTags)
+    }, [])
+    useUpdate(() => {
+        localStorage.setItem('tags', JSON.stringify(tags))
+    }, [tags]) // 不可变数据原则
+    const findTag = (id: number) => {
+        return tags.filter(tag => tag.id === id)[0]
+    }
     const updateTag = (id: number, name:string) => {
         const tagIdx = tags.findIndex(tag => tag.id === id)
         const tagsClone = JSON.parse(JSON.stringify(tags))
@@ -24,10 +36,7 @@ const useTags = () => {
         }
     }
     const deleteTag = (id: number) => {
-        const tagIdx = tags.findIndex(tag => tag.id === id)
-        const tagsClone = JSON.parse(JSON.stringify(tags))
-        tagsClone.splice(tagIdx, 1)
-        setTags(() => tagsClone)
+        setTags(() => tags.filter(tag => tag.id !== id))
     }
     return {
         tags,
