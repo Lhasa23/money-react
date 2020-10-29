@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
@@ -19,8 +19,12 @@ const Wrapper = styled.section`
     }
 `
 
-const NoteSection: React.FC = () => {
-    const [note, setNote] = useState('')
+type Props = {
+    value: string
+    onChange: (note: string) => void
+}
+const NoteSection: React.FC<Props> = (props) => {
+    const note = props.value
     /*
     * 非受控型
     *
@@ -42,7 +46,7 @@ const NoteSection: React.FC = () => {
             <span>备注</span>
             <input type="text" placeholder="请在这里添加备注"
                    value={note}
-                   onChange={(e) => setNote(e.target.value)}
+                   onChange={(e) => props.onChange(e.target.value)}
             />
         </Wrapper>
     )

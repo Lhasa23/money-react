@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -63,19 +63,25 @@ const Keyboard = styled.div`
   }
 `
 
-const NumPadSection: React.FC = () => {
-    const [output, setOutput] = useState('0')
+type Props = {
+    value: string
+    onChange: (value: string) => void
+    onEnter: () => void
+}
+const NumPadSection: React.FC<Props> = (props) => {
+    const output = props.value
     const onClickBtn = (event: React.MouseEvent) => {
         const button = event.target as HTMLButtonElement
         const input = button.textContent!
         switch (input) {
             case '清空':
-                setOutput('0')
+                props.onChange('0')
                 break
             case '删除':
-                setOutput(output.slice(0, -1) || '0')
+                props.onChange(output.slice(0, -1) || '0')
                 break
             case 'ENTER':
+                props.onEnter()
                 break
             case '0':
             case '1':
@@ -92,14 +98,14 @@ const NumPadSection: React.FC = () => {
                 if (output.length === 16) return;
                 if (output === '0') {
                     if ('0123456789'.indexOf(input) > -1) {
-                        setOutput(input)
+                        props.onChange(input)
                     } else {
-                        setOutput(output + input)
+                        props.onChange(output + input)
                     }
                     return;
                 }
                 if (pointInx > -1 && input === '.') return
-                setOutput(output + input)
+                props.onChange(output + input)
         }
     }
     return (

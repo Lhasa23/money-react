@@ -34,7 +34,7 @@ const Nav = () => {
         <NavWrapper>
             <ul>
                 <li>
-                    <NavLink to="/tags" activeClassName="selected">
+                    <NavLink exact to="/tags" activeClassName="selected">
                         <MyIcon name="label" />
                         标签
                     </NavLink>

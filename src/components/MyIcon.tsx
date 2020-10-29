@@ -5,11 +5,16 @@ try {importAll(require.context('../assets/icons', true, /\.svg$/));} catch (erro
 
 type Props = {
     name: string
+    className?: string
+    onClick?: () => void
 }
-
 const MyIcon = (props: Props) => {
     return (
-        <svg fill="#88FF60" className="icon">
+        <svg
+            fill="#88FF60"
+            className={props.className || 'icon'}
+            onClick={props.onClick}
+        >
             <use xlinkHref={`#${props.name}`} />
         </svg>
     )

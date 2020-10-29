@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
+import useTags from '../../useTags';
 
 const Wrapper = styled.section`
   flex-grow: 1;
@@ -7,15 +8,7 @@ const Wrapper = styled.section`
   flex-direction: column;
   justify-content: flex-end;
   font-size: 14px;
-    .top-footer {
-      padding: 12px 8px 8px;
-      .add-label {
-        color: #999999;
-        background-color: inherit;
-        border: none;
-        border-bottom: 1px solid;
-      }
-    }
+  padding-bottom: 8px;
 `
 const Labels = styled.div`
     display: flex;
@@ -39,45 +32,38 @@ const Labels = styled.div`
     }
 `
 
-const TagSection: React.FC = () => {
-    const [tags, setTags] = useState<string[]>(['衣','食','住','行'])
-    const [selectedTags, setSelectedTags] = useState<string[]>([])
-    const onAddTag = () => {
-        const tagName = window.prompt('请输入新标签名：')
-        if (tagName) {
-            setTags([...tags, tagName])
-        }
-    }
-    const onToggleSelect = (tag: string) => {
-        const idx = selectedTags.indexOf(tag)
+type Props = {
+    value: number[]
+    onChange: (selected: number[]) => void
+}
+const TagSection: React.FC<Props> = (props) => {
+    const {tags} = useTags()
+    const selectedTagIds = props.value
+    const onToggleSelect = (tagId: number) => {
+        const idx = selectedTagIds.indexOf(tagId)
         if (idx > -1) {
-            setSelectedTags(selectedTags.filter(t => t !== tag))
+            props.onChange(selectedTagIds.filter(t => t !== tagId))
         } else {
-            setSelectedTags([...selectedTags, tag])
+            props.onChange([...selectedTagIds, tagId])
         }
     }
-    const isSelected = (tag: string) => selectedTags.findIndex(name => name === tag) > -1 ? "selected label-item" : "label-item"
+    const isSelected = (tagId: number) => selectedTagIds.findIndex(name => name === tagId) > -1 ? "selected label-item" : "label-item"
     return (
         <Wrapper>
             <Labels>
                 {tags.map((tag) => {
                     return (
                         <div
-                            key={tag}
-                            onClick={() => onToggleSelect(tag)}
-                            className={isSelected(tag)}
+                            key={tag.id}
+                            onClick={() => onToggleSelect(tag.id)}
+                            className={isSelected(tag.id)}
                         >
-                            {tag}
+                            {tag.name}
                         </div>
                     )
                 })
                 }
             </Labels>
-            <div className="top-footer">
-                <button onClick={onAddTag} className="add-label">
-                    添加标签
-                </button>
-            </div>
         </Wrapper>
     )
 }
