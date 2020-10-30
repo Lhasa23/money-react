@@ -65,14 +65,14 @@ function Statistics() {
                 <CategorySection value={category} onChange={(e) => setCategory(e)} />
             </CateWrapper>
             {group.map(([time, records]) => {
-                    return (<div>
+                    return (<div key={time}>
                         <Header>{time}</Header>
                         <ol>
                             {records.map((r, rIdx) => {
                                 return (
                                     <Item key={rIdx}>
                                         <div className="tags">
-                                            {r.tagIds.map((tagId, tagIdx) => <span key={tagId}>{tagIdx !== 0 && '，'}{findTag(tagId).name}</span>)}
+                                            {r.tagIds.map((tagId, tagIdx) => <span key={tagId}>{tagIdx !== 0 && '，'}{findTag(tagId)!.name}</span>)}
                                         </div>
                                         {r.note && <div className="note">
                                             {r.note}

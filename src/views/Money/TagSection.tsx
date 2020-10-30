@@ -9,6 +9,7 @@ const Wrapper = styled.section`
   justify-content: flex-end;
   font-size: 14px;
   padding-bottom: 8px;
+  overflow: auto;
 `
 const Labels = styled.div`
     display: flex;
@@ -16,7 +17,6 @@ const Labels = styled.div`
     margin-left: 4px;
     flex-wrap: wrap;
     max-height: 100%;
-    overflow: auto;
     .label-item {
       display: flex;
       justify-content: center;

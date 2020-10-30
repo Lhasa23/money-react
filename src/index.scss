@@ -15,7 +15,8 @@ a {
   color: inherit;
 }
 body {
-  margin: 0;
+  max-width: 445px;
+  margin: 0 auto;
   font-family: $font-hei;
   font-size: 16px;
   line-height: 1.2;

@@ -18,9 +18,9 @@ const useTags = () => {
     }, [])
     useUpdate(() => {
         localStorage.setItem('tags', JSON.stringify(tags))
-    }, [tags]) // 不可变数据原则
+    }, tags) // 不可变数据原则
     const findTag = (id: number) => {
-        return tags.find(tag => tag.id === id) || {name: ''}
+        return tags.find(tag => tag.id === id)
     }
     const updateTag = (id: number, name:string) => {
         const tagIdx = tags.findIndex(tag => tag.id === id)

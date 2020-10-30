@@ -77,7 +77,7 @@ const Tag: React.FC = () => {
                 setTagName(tag.name)
             }
         }
-    }, [findTag])
+    }, [findTag, idString])
     const onClickAdd = (id: number, name: string) => {
         if (!name) {
             alert('标签名不能为空')
