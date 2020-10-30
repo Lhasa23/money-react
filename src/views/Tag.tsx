@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import useTags from '../useTags';
+import useTags from '../hooks/useTags';
 import {
     useParams,
     useHistory

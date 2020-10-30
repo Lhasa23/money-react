@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: rgb(245,245,245);
 `
 const Main = styled.div`
   flex-grow: 1;

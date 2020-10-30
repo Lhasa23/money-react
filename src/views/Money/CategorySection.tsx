@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Section = styled.ul`
   font-size: 24px;
-  background-color: #C1FD78;
   display: flex;
   text-align: center;
 　 li {

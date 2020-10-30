@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
-import createId from './lib/createId';
-import useUpdate from './lib/useUpdate';
+import createId from '../lib/createId';
+import useUpdate from './useUpdate';
 
 const useTags = () => {
     const [tags, setTags] = useState<{ id: number, name: string }[]>([])
@@ -20,7 +20,7 @@ const useTags = () => {
         localStorage.setItem('tags', JSON.stringify(tags))
     }, [tags]) // 不可变数据原则
     const findTag = (id: number) => {
-        return tags.filter(tag => tag.id === id)[0]
+        return tags.find(tag => tag.id === id) || {name: ''}
     }
     const updateTag = (id: number, name:string) => {
         const tagIdx = tags.findIndex(tag => tag.id === id)
